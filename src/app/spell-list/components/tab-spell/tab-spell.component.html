@@ -1,0 +1,21 @@
+<p-card>
+    <p-tabView>
+        <p-tabPanel header="Cantrip">
+            <ng-template pTemplate="content">
+                <app-tab-content [level]=0></app-tab-content>
+            </ng-template>
+        </p-tabPanel>
+        <p-tabPanel header="Level 1">
+            <ng-template pTemplate="content">
+                <app-tab-content [level]=1></app-tab-content>
+            </ng-template>
+        </p-tabPanel>
+        <p-tabPanel header="Level 2">
+            <ng-template pTemplate="content">
+                <app-tab-content [level]=2></app-tab-content>
+            </ng-template>
+        </p-tabPanel>
+    </p-tabView>
+    
+    
+</p-card>
