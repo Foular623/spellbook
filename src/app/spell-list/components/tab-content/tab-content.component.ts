@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Spell } from 'src/app/model/spell.model';
 
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { SpellListService } from 'src/app/services/spell-list.service';
 
 import { DialogService } from 'primeng/dynamicdialog';
@@ -22,17 +22,21 @@ export class TabContentComponent implements OnInit {
   constructor( 
     private spellList:          SpellListService,
     private dialogService:      DialogService,
-    private confirmation:       ConfirmationService
+    private confirmation:       ConfirmationService,
+    private message:            MessageService
   ) { }
 
   ngOnInit(): void {
+    this.reloadSpell();
+  }
+
+  reloadSpell(): void {
     this.spellList.getSpellsByLevel(this.level).subscribe(
       (x) => {
         this.spells = x;
       }
     )
   }
-
 
   viewSpell(name: string) {
     
@@ -51,16 +55,23 @@ export class TabContentComponent implements OnInit {
 
   editSpell(name: string){}
 
-  deleteSpell(name: string){
+  deleteSpell(spell: Spell){
 
     this.confirmation.confirm({
-      message: `¿Estas seguro de querer eliminar el conjuro ${ name }?`,
+      message: `¿Estas seguro de querer eliminar el conjuro ${ spell.Name }?`,
+      key: spell.Name + ' - ' + spell.Level ,
       accept: () => {
-        console.log(name);
+        this.spellList.deleteSpell(spell);
+        this.reloadSpell();
+        this.showSuccess(`El conjuro ${ spell.Name } a sido eliminado con exito.` );
       }
     });
   }
-
+  
+  showSuccess(message: string) {
+    this.message.add({severity:'success', summary: 'Success', detail: message});
+  }
+  
   
 
 }

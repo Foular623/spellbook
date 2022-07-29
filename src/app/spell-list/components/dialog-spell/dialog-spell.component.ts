@@ -9,7 +9,7 @@ import { SpellListService } from 'src/app/services/spell-list.service';
 })
 export class DialogSpellComponent implements OnInit {
 
-  currentSpell!: Spell | boolean;
+  currentSpell!: Spell;
 
   constructor(
     private spellListService: SpellListService,
@@ -20,7 +20,9 @@ export class DialogSpellComponent implements OnInit {
   ngOnInit(): void {
     if (this.config.header) {
       const name = this.config.header
-      this.currentSpell = this.spellListService.getSpellByName(name)
+      this.spellListService.getSpellByName(name).subscribe((x) => {
+        this.currentSpell = x;
+      });
 
     }
     

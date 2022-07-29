@@ -9,7 +9,8 @@ import { TabSpellComponent } from './components/tab-spell/tab-spell.component';
 import { TabContentComponent } from './components/tab-content/tab-content.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { DialogSpellComponent } from './components/dialog-spell/dialog-spell.component';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { PipesModule } from './pipes/pipes.module';
 
 
 @NgModule({
@@ -23,14 +24,16 @@ import { ConfirmationService } from 'primeng/api';
   imports: [
     CommonModule,
     SpellListRoutingModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    PipesModule
   ],
   entryComponents: [
     DialogSpellComponent
   ],
   providers: [
+    ConfirmationService,
     DialogService,
-    ConfirmationService
+    MessageService
   ]
 })
 export class SpellListModule { }

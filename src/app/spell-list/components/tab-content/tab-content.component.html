@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <p-table    [value]="spells" 
             selectionMode="single" 
             [(selection)]="selectedSpell" 
@@ -26,9 +27,9 @@
             <td>
                 <p-button icon="pi pi-eye" styleClass="p-button-info" (onClick)="viewSpell(spell.Name)"></p-button>
                 <p-button icon="pi pi-pencil" styleClass="p-button-warning"></p-button>
-                <p-button icon="pi pi-times" styleClass="p-button-danger" (onClick)="deleteSpell(spell.Name)" ></p-button>
+                <p-confirmDialog header="Confirmación" icon="pi pi-exclamation-triangle"  [key]="spell.Name + ' - ' + spell.Level"></p-confirmDialog>
+                <p-button icon="pi pi-times" styleClass="p-button-danger" (onClick)="deleteSpell(spell)" ></p-button>
                 
-                <p-confirmDialog header="Confirmación" icon="pi pi-exclamation-triangle"></p-confirmDialog>
             </td>
         </tr>
     </ng-template>

@@ -6,10 +6,12 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
-
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+
+
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
+import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 
 @NgModule({
@@ -22,6 +24,7 @@ import { ToolbarModule } from 'primeng/toolbar';
     DynamicDialogModule,
     TableModule,
     TabViewModule,
+    ToastModule,
     ToolbarModule
   ]
 })

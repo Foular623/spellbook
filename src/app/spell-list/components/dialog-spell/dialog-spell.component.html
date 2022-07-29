@@ -2,5 +2,8 @@
     No existe ese conjuro.
 </div>
 <div *ngIf="currentSpell">
-    {{ currentSpell | json }}
+    <hr>
+    <p [innerHtml]="currentSpell.Desc | desc">
+    </p>
+    <!-- {{ currentSpell | json }} -->
 </div>
