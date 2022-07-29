@@ -3,8 +3,6 @@
             [(selection)]="selectedSpell" 
             dataKey="Name" 
             responsiveLayout="scroll" 
-            (onRowSelect)="onRowSelect($event)" 
-            (onRowUnselect)="onRowUnselect($event)"
             *ngIf="spells.length != 0">
     <ng-template pTemplate="header">
         <tr>
@@ -26,8 +24,11 @@
             </td>
             <td>{{spell.Classes}}</td>
             <td>
-                <p-button icon="pi pi-pencil" styleClass="p-button-secondary"></p-button>
-                <p-button icon="pi pi-times" styleClass="p-button-warning"></p-button>
+                <p-button icon="pi pi-eye" styleClass="p-button-info" (onClick)="viewSpell(spell.Name)"></p-button>
+                <p-button icon="pi pi-pencil" styleClass="p-button-warning"></p-button>
+                <p-button icon="pi pi-times" styleClass="p-button-danger" (onClick)="deleteSpell(spell.Name)" ></p-button>
+                
+                <p-confirmDialog header="Confirmación" icon="pi pi-exclamation-triangle"></p-confirmDialog>
             </td>
         </tr>
     </ng-template>

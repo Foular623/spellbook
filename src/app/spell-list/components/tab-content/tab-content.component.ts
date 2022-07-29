@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Spell } from 'src/app/model/spell.model';
+
+import { ConfirmationService } from 'primeng/api';
 import { SpellListService } from 'src/app/services/spell-list.service';
+
 import { DialogService } from 'primeng/dynamicdialog';
 import { DialogSpellComponent } from '../dialog-spell/dialog-spell.component'
 
@@ -17,8 +20,9 @@ export class TabContentComponent implements OnInit {
   selectedSpell!: Spell;
 
   constructor( 
-    private spellList:         SpellListService,
-    private dialogService:     DialogService
+    private spellList:          SpellListService,
+    private dialogService:      DialogService,
+    private confirmation:       ConfirmationService
   ) { }
 
   ngOnInit(): void {
@@ -29,20 +33,34 @@ export class TabContentComponent implements OnInit {
     )
   }
 
-  onRowUnselect(event: any) {
-    console.log(event);
-  }
 
-  onRowSelect(event: any) {
+  viewSpell(name: string) {
     
     const ref = this.dialogService.open(DialogSpellComponent, {
-      header: "Header",
-      width: '70%'
+      header: name,
+      width: '70%',
+      data: {
+        "name": name
+      }
     })
 
-    ref.onClose.subscribe(() => {
-      //this.selectedSpell = ""
+    // ref.onClose.subscribe(() => {
+    //   //this.selectedSpell = ""
+    // });
+  }
+
+  editSpell(name: string){}
+
+  deleteSpell(name: string){
+
+    this.confirmation.confirm({
+      message: `¿Estas seguro de querer eliminar el conjuro ${ name }?`,
+      accept: () => {
+        console.log(name);
+      }
     });
   }
+
+  
 
 }

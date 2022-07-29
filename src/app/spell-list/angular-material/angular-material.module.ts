@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
 
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
@@ -16,6 +17,7 @@ import { ToolbarModule } from 'primeng/toolbar';
   exports: [
     ButtonModule,
     CardModule,
+    ConfirmDialogModule,
     DialogModule,
     DynamicDialogModule,
     TableModule,

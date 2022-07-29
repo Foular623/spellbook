@@ -1,7 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { 
+body { 
+    padding: 2em;
     height: 100%; 
     font-family: var( --font-family );
+}
+
+p-button {
+    margin-right: 4%;
 }
 

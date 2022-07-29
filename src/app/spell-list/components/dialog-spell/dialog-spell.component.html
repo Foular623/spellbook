@@ -1,1 +1,6 @@
-<p>dialog-spell works!</p>
+<div *ngIf="!currentSpell">
+    No existe ese conjuro.
+</div>
+<div *ngIf="currentSpell">
+    {{ currentSpell | json }}
+</div>

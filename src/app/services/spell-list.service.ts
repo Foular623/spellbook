@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { find, Observable } from 'rxjs';
 import { Spell, SpellData } from '../model/spell.model';
 import { IpcServiceService } from './ipc-service.service'
 
@@ -64,6 +64,15 @@ export class SpellListService {
     }
   ]
 
+  reloadList(){} // TODO: Hacer recarga de la lista cuando electron
+  updateList(){} // TODO: Hacer UPDATE de la lista cuando electron
+
+  getSpellByName(name: string): Spell | boolean {
+    const result = this.list.find((x) => x.Name === name);
+
+    if ( result ) return Spell.spellDesdeJson(result)
+    else return false
+  }
 
   getSpellsByLevel(level: number): Observable<Spell[]> {
     return new Observable<Spell[]>((observer) => {

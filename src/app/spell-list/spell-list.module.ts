@@ -9,6 +9,7 @@ import { TabSpellComponent } from './components/tab-spell/tab-spell.component';
 import { TabContentComponent } from './components/tab-content/tab-content.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { DialogSpellComponent } from './components/dialog-spell/dialog-spell.component';
+import { ConfirmationService } from 'primeng/api';
 
 
 @NgModule({
@@ -27,6 +28,9 @@ import { DialogSpellComponent } from './components/dialog-spell/dialog-spell.com
   entryComponents: [
     DialogSpellComponent
   ],
-  providers: [DialogService]
+  providers: [
+    DialogService,
+    ConfirmationService
+  ]
 })
 export class SpellListModule { }
