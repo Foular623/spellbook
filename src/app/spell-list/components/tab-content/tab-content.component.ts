@@ -6,6 +6,7 @@ import { SpellListService } from 'src/app/services/spell-list.service';
 
 import { DialogService } from 'primeng/dynamicdialog';
 import { DialogSpellComponent } from '../dialog-spell/dialog-spell.component'
+import { DialogAddEditComponent } from '../dialog-add-edit/dialog-add-edit.component';
 
 @Component({
   selector: 'app-tab-content',
@@ -48,12 +49,22 @@ export class TabContentComponent implements OnInit {
       }
     })
 
+ 
+  }
+
+  editSpell(spell: Spell){
+    const ref = this.dialogService.open(DialogAddEditComponent, {
+      header: `Editar: ${spell.Name}`,
+      width: '70%',
+      data: {
+        "spell": spell.Name
+      }
+    })
+
     // ref.onClose.subscribe(() => {
     //   //this.selectedSpell = ""
     // });
   }
-
-  editSpell(name: string){}
 
   deleteSpell(spell: Spell){
 

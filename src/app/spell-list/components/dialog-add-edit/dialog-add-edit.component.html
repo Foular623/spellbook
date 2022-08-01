@@ -1,0 +1,73 @@
+<form [formGroup]="formSpell">
+
+    <div class="p-fluid grid">
+        <div class="field col-12 md:col-4">
+            <h5>Nombre</h5>
+            <input type="text" id="inputtext" pInputText > 
+        </div>
+    
+        <div class="field col-12 md:col-4">
+            <h5>Nivel</h5>
+            <p-dropdown inputId="dropdown" [options]="levels" optionLabel="name" placeholder="Selecciona el nivel"></p-dropdown>
+        </div>
+    
+        <div class="field col-12 md:col-4">
+            <h5>Clases</h5>
+            <p-multiSelect [options]="classes" defaultLabel="Selecciona las clases" optionLabel="name" display="chip"></p-multiSelect>
+        </div>
+    
+        <div class="field col-12 md:col-4">
+            <h5>Escuela</h5>
+            <p-dropdown [options]="schools"  placeholder="Selecciona la escuela" optionLabel="name" [showClear]="true"></p-dropdown>
+        </div> 
+    
+        
+        <div class="field col-12 md:col-4">
+            
+            <h5>Components:</h5>
+            <div class="field-checkbox">
+                <p-checkbox name="groupcomponent" label="Verbal" value="x" inputId="V"></p-checkbox><br>
+            </div>
+            <div class="field-checkbox">
+                <p-checkbox name="groupcomponent" label="Somatico" value="x" inputId="S"></p-checkbox><br>
+            </div>
+            <div class="field-checkbox">
+                <p-checkbox name="groupcomponent" label="Material" value="x" inputId="M"></p-checkbox>
+                
+                <input type="text" id="inputtext" pInputText disabled> 
+            </div>
+            <h5>Ritual:</h5>
+            <p-toggleButton onIcon="pi pi-check" offIcon="pi pi-times"></p-toggleButton>
+            <h5>Concentracion:</h5>
+            <p-toggleButton onIcon="pi pi-check" offIcon="pi pi-times"></p-toggleButton>
+        </div>
+        <div class="field col-12 md:col-4">
+            <h5>Tiempo de Lanzamiento</h5>
+            <input type="text" id="inputtext" pInputText > 
+        </div>
+        <div class="field col-12 md:col-4">
+            <h5>Duracion</h5>
+            <input type="text" id="inputtext" pInputText > 
+        </div>
+        <div class="field col-12 md:col-4">
+            <h5>Rango</h5>
+            <input type="text" id="inputtext" pInputText > 
+        </div>
+        <div class="field col-12 md:col-4">
+            <h5>Descripcion</h5>
+            <textarea pInputTextarea></textarea>
+        </div>  
+        <div class="field col-12 md:col-4">
+            <h5>A nivel alto</h5>
+            <textarea pInputTextarea></textarea>
+        </div>  
+    
+    </div>
+    <p-button label="Guardar" icon="pi pi-check" styleClass="p-button-success"></p-button>
+</form>
+
+<!-- <div class="field col-12 md:col-4">
+
+</div> -->
+
+

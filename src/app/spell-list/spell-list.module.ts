@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -11,6 +12,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { DialogSpellComponent } from './components/dialog-spell/dialog-spell.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { PipesModule } from './pipes/pipes.module';
+import { DialogAddEditComponent } from './components/dialog-add-edit/dialog-add-edit.component';
 
 
 @NgModule({
@@ -19,10 +21,13 @@ import { PipesModule } from './pipes/pipes.module';
     TabSpellComponent,
     TabContentComponent,
     ToolbarComponent,
-    DialogSpellComponent
+    DialogSpellComponent,
+    DialogAddEditComponent
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     SpellListRoutingModule,
     AngularMaterialModule,
     PipesModule
@@ -33,6 +38,7 @@ import { PipesModule } from './pipes/pipes.module';
   providers: [
     ConfirmationService,
     DialogService,
+    FormBuilder,
     MessageService
   ]
 })
