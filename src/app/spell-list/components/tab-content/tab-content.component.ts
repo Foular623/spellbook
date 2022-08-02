@@ -35,6 +35,7 @@ export class TabContentComponent implements OnInit {
     this.spellList.getSpellsByLevel(this.level).subscribe(
       (x) => {
         this.spells = x;
+        console.log(this.spells);
       }
     )
   }

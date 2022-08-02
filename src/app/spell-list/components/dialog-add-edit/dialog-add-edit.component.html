@@ -3,22 +3,22 @@
     <div class="p-fluid grid">
         <div class="field col-12 md:col-4">
             <h5>Nombre</h5>
-            <input type="text" id="inputtext" pInputText > 
+            <input type="text" id="inputtext" pInputText formControlName="Name"> 
         </div>
     
         <div class="field col-12 md:col-4">
             <h5>Nivel</h5>
-            <p-dropdown inputId="dropdown" [options]="levels" optionLabel="name" placeholder="Selecciona el nivel"></p-dropdown>
+            <p-dropdown inputId="dropdown" [options]="levels" optionLabel="name" placeholder="Selecciona el nivel" formControlName="Level" optionValue="level"></p-dropdown>
         </div>
     
         <div class="field col-12 md:col-4">
             <h5>Clases</h5>
-            <p-multiSelect [options]="classes" defaultLabel="Selecciona las clases" optionLabel="name" display="chip"></p-multiSelect>
+            <p-multiSelect [options]="classes" defaultLabel="Selecciona las clases" optionLabel="name" display="chip" formControlName="Classes" optionValue="value" ></p-multiSelect>
         </div>
     
         <div class="field col-12 md:col-4">
             <h5>Escuela</h5>
-            <p-dropdown [options]="schools"  placeholder="Selecciona la escuela" optionLabel="name" [showClear]="true"></p-dropdown>
+            <p-dropdown [options]="schools"  placeholder="Selecciona la escuela" optionLabel="name" [showClear]="true" formControlName="School" optionValue="value"></p-dropdown>
         </div> 
     
         
@@ -26,40 +26,43 @@
             
             <h5>Components:</h5>
             <div class="field-checkbox">
-                <p-checkbox name="groupcomponent" label="Verbal" value="x" inputId="V"></p-checkbox><br>
+                <p-checkbox name="groupcomponent" label="Verbal" value="x" inputId="V" [binary]="true" formControlName="VComponent"></p-checkbox><br>
             </div>
             <div class="field-checkbox">
-                <p-checkbox name="groupcomponent" label="Somatico" value="x" inputId="S"></p-checkbox><br>
+                <p-checkbox name="groupcomponent" label="Somatico" value="x" inputId="S" [binary]="true" formControlName="SComponent"></p-checkbox><br>
             </div>
             <div class="field-checkbox">
-                <p-checkbox name="groupcomponent" label="Material" value="x" inputId="M"></p-checkbox>
+                <p-checkbox name="groupcomponent" label="Material" value="x" inputId="M" [binary]="true" formControlName="MComponent" (onChange)="checkMaterial()"></p-checkbox>
                 
-                <input type="text" id="inputtext" pInputText disabled> 
+                <input type="text" id="inputtext" pInputText formControlName="Material"> 
             </div>
             <h5>Ritual:</h5>
-            <p-toggleButton onIcon="pi pi-check" offIcon="pi pi-times"></p-toggleButton>
+            
+            <p-toggleButton onIcon="pi pi-check" offIcon="pi pi-times" formControlName="IsRitual"></p-toggleButton>
             <h5>Concentracion:</h5>
-            <p-toggleButton onIcon="pi pi-check" offIcon="pi pi-times"></p-toggleButton>
+            <p-toggleButton onIcon="pi pi-check" offIcon="pi pi-times" formControlName="Concentration"></p-toggleButton>
+            <h5>Conjuro SRD:</h5>
+            <p-toggleButton onIcon="pi pi-check" offIcon="pi pi-times" formControlName="SRD"></p-toggleButton>
         </div>
         <div class="field col-12 md:col-4">
             <h5>Tiempo de Lanzamiento</h5>
-            <input type="text" id="inputtext" pInputText > 
+            <input type="text" id="inputtext" pInputText formControlName="CastTime"> 
         </div>
         <div class="field col-12 md:col-4">
             <h5>Duracion</h5>
-            <input type="text" id="inputtext" pInputText > 
+            <input type="text" id="inputtext" pInputText formControlName="Duration"> 
         </div>
         <div class="field col-12 md:col-4">
             <h5>Rango</h5>
-            <input type="text" id="inputtext" pInputText > 
+            <input type="text" id="inputtext" pInputText formControlName="Range"> 
         </div>
         <div class="field col-12 md:col-4">
             <h5>Descripcion</h5>
-            <textarea pInputTextarea></textarea>
+            <textarea pInputTextarea formControlName="Desc" [autoResize]=true></textarea>
         </div>  
         <div class="field col-12 md:col-4">
             <h5>A nivel alto</h5>
-            <textarea pInputTextarea></textarea>
+            <textarea pInputTextarea formControlName="AtHighLevel" [autoResize]=true></textarea>
         </div>  
     
     </div>

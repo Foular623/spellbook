@@ -26,7 +26,7 @@ export class DataDndSpellService {
   getListClasses(): ClassList[] {
     return [
       { name: 'Artificiero', value: 'Artificer'},
-      { name: 'Bardo', value: 'bard'}, //bar
+      { name: 'Bardo', value: 'Bard'}, //bar
       { name: 'Brujo', value: 'Warlock'}, // bru
       { name: 'Clerigo', value: 'Cleric'}, // cle
       { name: 'Druida', value: 'Druid'}, // drui

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { find, observable, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Spell, SpellData } from '../model/spell.model';
 import { IpcServiceService } from './ipc-service.service'
 
@@ -37,7 +37,7 @@ export class SpellListService {
           "S": true,
           "V": true
       },
-      "Desc": "You create a ghostly, skeletal hand in the space of a creature within range. |Make a ranged spell attack against the creature to assail it with the chill of the grave. On a hit, the target takes 1d8 necrotic damage, and it can't regain hit points until the start of your next turn. Until then, the hand clings to the target. If you hit an undead target, it also has disadvantage on attack rolls against you until the end of your next turn. |At higher level: This spell's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).|",
+      "Desc": "You create a ghostly, skeletal hand in the space of a creature within range. |Make a ranged spell attack against the creature to assail it with the chill of the grave. On a hit, the target takes 1d8 necrotic damage, and it can't regain hit points until the start of your next turn. Until then, the hand clings to the target. If you hit an undead target, it also has disadvantage on attack rolls against you until the end of your next turn. |||At higher level: This spell's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).",
       "Duration": "1 round",
       "IsRitual": false,
       "Level": 0,
@@ -58,9 +58,43 @@ export class SpellListService {
       "Duration": "1 round",
       "IsRitual": false,
       "Level": 1,
-      "Name": "Chill Touch",
+      "Name": "Chill Touch2",
       "Range": "120 feet",
       "School": "Necromancy"
+    },
+    {
+      "CastTime": "1 Action",
+      "Classes": "Bard, Sorcerer, Wizard, Artificer, SRD",
+      "Components": {
+          "M": true,
+          "MDetails": "a bit of phosphorus or wychwood, or a glowworm",
+          "S": true,
+          "V": true
+      },
+      "Desc": "You create up to four torch-sized lights within range, making them appear as torches, lanterns, or glowing orbs that hover in the air for the duration. |You can also combine the four lights into one glowing vaguely humanoid form of Medium size. Whichever form you choose, each light sheds dim light in a 10-foot radius. ||As a bonus action on your turn, you can move the lights up to 60 feet to a new spot within range. A light must be within 20 feet of another light created by this spell, and a light winks out if it exceeds the spell's range.",
+      "Duration": "Concentration, up to 1 minute",
+      "IsRitual": false,
+      "Level": 0,
+      "Name": "Dancing Lights",
+      "Range": "120 feet",
+      "School": "Evocation"
+  },
+  {
+        "CastTime": "1 Action",
+        "Classes": "Bard, Druid, Ranger, SRD",
+        "Components": {
+            "M": true,
+            "MDetails": "a morsel of food",
+            "S": true,
+            "V": true
+        },
+        "Desc": "By means of this spell, you use an animal to deliver a message.|Choose a Tiny beast you can see within range, such as a squirrel, a blue ray, or a bat. You specify a location, which you must have visited, and a recipient who matches a general description, such as a man or woman dressed in the uniform of the town guard or a red-haired dwarf wearing a pointed hat. You also speak a message of up to twenty-five words. The target beast travels for the duration of the spell towards the specified location, covering about 50 miles per 24 hours for a flying messenger or 25 miles for other animals.||When the messenger arrives, it delivers your message to the creature that you described, replicating the sound of your voice. The messenger speaks only to a creature matching the description you gave. If the messenger doesn't reach its destination before the spell ends, the message is lost, and the beast makes it way back to where you cast this spell.|At higher level: If you cast this spell using a spell slot of 3rd level or higher, the duration of the spell increases by 48 hours for each slot level above 2nd.",
+        "Duration": "24 hours",
+        "IsRitual": true,
+        "Level": 2,
+        "Name": "Animal Messenger",
+        "Range": "30 feet",
+        "School": "Enchantment"
     }
   ]
 
