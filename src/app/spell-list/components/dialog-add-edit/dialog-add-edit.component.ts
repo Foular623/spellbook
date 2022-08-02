@@ -15,9 +15,11 @@ import { PrimeNGConfig } from 'primeng/api';
 })
 export class DialogAddEditComponent implements OnInit {
 
-  levels:   LevelList[]         = [];
-  classes:  ClassList[]         = [];
-  schools:  SchoolSpellsList[]  = [];
+  levels:         LevelList[]         = [];
+  classes:        ClassList[]         = [];
+  schools:        SchoolSpellsList[]  = [];
+  currentSpell?:  Spell;
+
 
   formSpell: FormGroup = this.fb.group({
     CastTime: [ '', [Validators.required, Validators.minLength(3)] ],
@@ -53,11 +55,9 @@ export class DialogAddEditComponent implements OnInit {
     this.classes = this.lists.getListClasses();
     this.schools = this.lists.getListSchoolSpells();
 
-    if (this.config.header) {
-      const name = this.config.data.spell;
-      this.spellListService.getSpellByName(name).subscribe((x) => {
-        this.jsonToFormSpell(x);
-      });
+    if (this.config.data.spell) {
+      this.currentSpell = this.config.data.spell;
+      this.jsonToFormSpell(this.currentSpell!);
     }
 
   }
@@ -104,6 +104,10 @@ export class DialogAddEditComponent implements OnInit {
     if (desc.length > 1) this.formSpell.controls['AtHighLevel'].setValue(desc[1].replace("|", "\n").replace("||", "\n\n").replace("At higher level: ", ""));
 
 
+  }
+
+  saveSpell() {
+    this.spellListService.saveSpell(this.currentSpell, this.formSpell);
   }
 
   // prueba() {

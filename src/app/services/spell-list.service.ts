@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Spell, SpellData } from '../model/spell.model';
 import { IpcServiceService } from './ipc-service.service'
@@ -8,8 +9,7 @@ import { IpcServiceService } from './ipc-service.service'
 })
 export class SpellListService {
 
-  constructor( private IpcService: IpcServiceService ) { }
-
+  // Me llega por peticion
   private list: SpellData[] = [
     {
       "CastTime": "1 Action",
@@ -47,7 +47,7 @@ export class SpellListService {
     },
     {
       "CastTime": "1 Action",
-      "Classes": "Sorcerer, Warlock, Wizard, SRD",
+      "Classes": "Sorcerer, Warlock, Wizard",
       "Components": {
           "M": false,
           "MDetails": "",
@@ -58,7 +58,7 @@ export class SpellListService {
       "Duration": "1 round",
       "IsRitual": false,
       "Level": 1,
-      "Name": "Chill Touch2",
+      "Name": "Chill Touch",
       "Range": "120 feet",
       "School": "Necromancy"
     },
@@ -80,25 +80,36 @@ export class SpellListService {
       "School": "Evocation"
   },
   {
-        "CastTime": "1 Action",
-        "Classes": "Bard, Druid, Ranger, SRD",
-        "Components": {
-            "M": true,
-            "MDetails": "a morsel of food",
-            "S": true,
-            "V": true
-        },
-        "Desc": "By means of this spell, you use an animal to deliver a message.|Choose a Tiny beast you can see within range, such as a squirrel, a blue ray, or a bat. You specify a location, which you must have visited, and a recipient who matches a general description, such as a man or woman dressed in the uniform of the town guard or a red-haired dwarf wearing a pointed hat. You also speak a message of up to twenty-five words. The target beast travels for the duration of the spell towards the specified location, covering about 50 miles per 24 hours for a flying messenger or 25 miles for other animals.||When the messenger arrives, it delivers your message to the creature that you described, replicating the sound of your voice. The messenger speaks only to a creature matching the description you gave. If the messenger doesn't reach its destination before the spell ends, the message is lost, and the beast makes it way back to where you cast this spell.|At higher level: If you cast this spell using a spell slot of 3rd level or higher, the duration of the spell increases by 48 hours for each slot level above 2nd.",
-        "Duration": "24 hours",
-        "IsRitual": true,
-        "Level": 2,
-        "Name": "Animal Messenger",
-        "Range": "30 feet",
-        "School": "Enchantment"
-    }
+    "CastTime": "1 Action",
+    "Classes": "Bard, Druid, Ranger, SRD",
+    "Components": {
+        "M": true,
+        "MDetails": "a morsel of food",
+        "S": true,
+        "V": true
+    },
+    "Desc": "By means of this spell, you use an animal to deliver a message.|Choose a Tiny beast you can see within range, such as a squirrel, a blue ray, or a bat. You specify a location, which you must have visited, and a recipient who matches a general description, such as a man or woman dressed in the uniform of the town guard or a red-haired dwarf wearing a pointed hat. You also speak a message of up to twenty-five words. The target beast travels for the duration of the spell towards the specified location, covering about 50 miles per 24 hours for a flying messenger or 25 miles for other animals.||When the messenger arrives, it delivers your message to the creature that you described, replicating the sound of your voice. The messenger speaks only to a creature matching the description you gave. If the messenger doesn't reach its destination before the spell ends, the message is lost, and the beast makes it way back to where you cast this spell.|At higher level: If you cast this spell using a spell slot of 3rd level or higher, the duration of the spell increases by 48 hours for each slot level above 2nd.",
+    "Duration": "24 hours",
+    "IsRitual": true,
+    "Level": 2,
+    "Name": "Animal Messenger",
+    "Range": "30 feet",
+    "School": "Enchantment"
+}
   ]
+  // ------------------------------
+  private loadList: Spell[] = [];
+  
+  constructor( private IpcService: IpcServiceService ) { 
+    this.loadList = this.list.map(( spell, index) => Spell.spellDesdeJson(spell, index))
+  }
+
+
 
   reloadList(){
+    // Recargo la lista de conjuros
+  } // TODO: Hacer recarga de la lista cuando electron
+  getList(){
     // Recargo la lista de conjuros
   } // TODO: Hacer recarga de la lista cuando electron
   updateList(){
@@ -106,13 +117,25 @@ export class SpellListService {
     this.reloadList();
   } // TODO: Hacer UPDATE de la lista cuando electron
 
+  // getSpellByName(name: string): Observable<Spell> {
+  //   return new Observable<Spell>((observer) => {
+
+  //     const result = this.list.find((x) => x.Name === name);
+  
+  //     if ( result ) {
+  //       observer.next(Spell.spellDesdeJson(result, 1);
+  //       observer.complete();
+  //     }
+  //   })
+  // }
+
   getSpellByName(name: string): Observable<Spell> {
     return new Observable<Spell>((observer) => {
 
       const result = this.list.find((x) => x.Name === name);
   
       if ( result ) {
-        observer.next(result);
+        observer.next(Spell.spellDesdeJson(result, 1));
         observer.complete();
       }
     })
@@ -121,15 +144,24 @@ export class SpellListService {
   getSpellsByLevel(level: number): Observable<Spell[]> {
     return new Observable<Spell[]>((observer) => {
       observer.next(
-        this.list.filter( spell => spell.Level == level)
-        .map( spell => Spell.spellDesdeJson(spell))
+        this.loadList.filter( spell => spell.Level == level)
       );
       observer.complete();
     })
   }
 
+  saveSpell(spell: Spell | undefined, form: FormGroup){
+    
+    if (spell) {
+      console.log(this.loadList.findIndex( x => x.ID === spell.ID))
+    }
+    else {
+      this.loadList.push(Spell.spellDesdeFormGroup(form, this.loadList.length))
+    }
+  }
+
   deleteSpell(spell: Spell): boolean {
-    this.list = this.list.filter((x) => x.Name !== spell.Name)
+    this.loadList = this.loadList.filter((x) => x.ID !== spell.ID)
     this.updateList();
     return true;
   }

@@ -2,7 +2,7 @@
 <p-table    [value]="spells" 
             selectionMode="single" 
             [(selection)]="selectedSpell" 
-            dataKey="Name" 
+            dataKey="ID" 
             responsiveLayout="scroll" 
             *ngIf="spells.length != 0">
     <ng-template pTemplate="header">
@@ -25,9 +25,9 @@
             </td>
             <td>{{spell.Classes}}</td>
             <td>
-                <p-button icon="pi pi-eye" styleClass="p-button-info" (onClick)="viewSpell(spell.Name)"></p-button>
+                <p-button icon="pi pi-eye" styleClass="p-button-info" (onClick)="viewSpell(spell)"></p-button>
                 <p-button icon="pi pi-pencil" styleClass="p-button-warning" (onClick)="editSpell(spell)"></p-button>
-                <p-confirmDialog header="Confirmación" icon="pi pi-exclamation-triangle"  [key]="spell.Name + ' - ' + spell.Level"></p-confirmDialog>
+                <p-confirmDialog header="Confirmación" icon="pi pi-exclamation-triangle"  [key]="spell.ID.toString()"></p-confirmDialog>
                 <p-button icon="pi pi-times" styleClass="p-button-danger" (onClick)="deleteSpell(spell)" ></p-button>
                 
             </td>

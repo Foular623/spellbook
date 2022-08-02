@@ -40,13 +40,13 @@ export class TabContentComponent implements OnInit {
     )
   }
 
-  viewSpell(name: string) {
+  viewSpell(spell: Spell) {
     
     const ref = this.dialogService.open(DialogSpellComponent, {
-      header: name,
+      header: spell.Name,
       width: '70%',
       data: {
-        "name": name
+        "spell": spell
       }
     })
 
@@ -58,7 +58,7 @@ export class TabContentComponent implements OnInit {
       header: `Editar: ${spell.Name}`,
       width: '70%',
       data: {
-        "spell": spell.Name
+        "spell": spell
       }
     })
 
@@ -71,7 +71,7 @@ export class TabContentComponent implements OnInit {
 
     this.confirmation.confirm({
       message: `¿Estas seguro de querer eliminar el conjuro ${ spell.Name }?`,
-      key: spell.Name + ' - ' + spell.Level ,
+      key: spell.ID.toString() ,
       accept: () => {
         this.spellList.deleteSpell(spell);
         this.reloadSpell();
