@@ -19,9 +19,8 @@ export class DialogSpellComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.config.header) {
-      const spell: Spell = this.config.data.spell;
-      this.currentSpell = spell;
-
+      this.currentSpell = this.config.data.spell;
+      console.log(this.currentSpell)
     }
     
   }

@@ -61,13 +61,13 @@
         </div>
         <div class="field col-12 md:col-4">
             <h5>Duracion</h5>
-            <input type="text" id="inputtext" pInputText formControlName="Duration"
+            <input type="text" id="Duration" pInputText formControlName="Duration"
             [ngClass]="{'ng-invalid': formSpell.controls['Duration'].invalid && submit, 'ng-dirty': formSpell.controls['Duration'].invalid && submit}"> 
             <small *ngIf="formSpell.controls['Duration'].invalid && submit" class="p-error block">La duracion debe ser marcada.</small>
         </div>
         <div class="field col-12 md:col-4">
             <h5>Rango</h5>
-            <input type="text" id="inputtext" pInputText formControlName="Range" 
+            <input type="text" id="Range" pInputText formControlName="Range" 
             [ngClass]="{'ng-invalid': formSpell.controls['Range'].invalid && submit, 'ng-dirty': formSpell.controls['Range'].invalid && submit}"> 
             <small *ngIf="formSpell.controls['Range'].invalid && submit" id="Name-help" class="p-error block">Se debe de especificar el rango.</small>
         </div>

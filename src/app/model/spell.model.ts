@@ -44,6 +44,18 @@ export class Spell {
         result = result + desc;
         return result;
     }
+    static descString( form: FormGroup ): string {
+        const reg: RegExp = new RegExp(/\n/g);
+
+        let result: string = form.controls['Desc'].value.replace(reg, "|");
+
+        if (form.controls['AtHighLevel'].value !== "") {
+            result = result + " |||At higher level: " + form.controls['AtHighLevel'].value.replace(reg, "|");
+        }
+        
+        return result
+
+    }
 
     static spellDesdeJson( obj: SpellData, index: number ){
         return new Spell (
@@ -69,7 +81,7 @@ export class Spell {
             form.controls['SComponent'].value,
             form.controls['VComponent'].value,
         );
-        const desc: string = form.controls['Desc'].value.replace("\n", "|").replace("\n\n", "||") + "|||At higher level: " +  form.controls['AtHighLevel'].value.replace("\n", "|").replace("\n\n", "||")
+        const desc: string = this.descString(form);
         const duration: string = this.durationString(form.controls['Duration'].value, form.controls['Concentration'].value);
 
         return new Spell (

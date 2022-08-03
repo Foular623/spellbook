@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
+import { MessageService, PrimeNGConfig } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { DialogAddEditComponent } from '../dialog-add-edit/dialog-add-edit.component';
 
@@ -12,6 +12,7 @@ export class ToolbarComponent implements OnInit {
   constructor(
     private primengConfig:    PrimeNGConfig,
     private dialogService:    DialogService,
+    private message:          MessageService
   ) { }
 
   ngOnInit(): void {
@@ -24,9 +25,14 @@ export class ToolbarComponent implements OnInit {
       width: '70%'
     })
 
-    ref.onClose.subscribe(() => {
-      //this.showSuccess(`El conjuro ${ spell.Name } a sido eliminado con exito.` );
+    ref.onClose.subscribe((result: string[]) => {
+      this.showSuccess(`El conjuro ${ result[1] } a sido creado con exito.` )
     });
   }
+
+  showSuccess(message: string) {
+    this.message.add({severity:'success', summary: 'Exito', detail: message});
+  }
+  
 
 }

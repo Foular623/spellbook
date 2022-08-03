@@ -68,9 +68,7 @@ export class TabContentComponent implements OnInit, OnDestroy {
     })
 
     ref.onClose.subscribe((result: string[]) => {
-      if (result[0] === 'edit') this.showSuccess(`El conjuro ${ result[1] } a sido modificado con exito.` )
-      else this.showSuccess(`El conjuro ${ result[1] } a sido creado con exito.` )
-      
+       this.showSuccess(`El conjuro ${ result[1] } a sido modificado con exito.` );
     });
   }
 
