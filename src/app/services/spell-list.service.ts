@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { MessageService } from 'primeng/api';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Spell, SpellData } from '../model/spell.model';
 import { IpcServiceService } from './ipc-service.service'
 
@@ -99,8 +100,13 @@ export class SpellListService {
   ]
   // ------------------------------
   private loadList: Spell[] = [];
+
+  private _eventReload = new BehaviorSubject(false);
+  public $observable = this._eventReload.asObservable();
   
-  constructor( private IpcService: IpcServiceService ) { 
+  constructor( 
+    private IpcService: IpcServiceService
+  ) { 
     this.loadList = this.list.map(( spell, index) => Spell.spellDesdeJson(spell, index))
   }
 
@@ -141,28 +147,36 @@ export class SpellListService {
     })
   }
 
-  getSpellsByLevel(level: number): Observable<Spell[]> {
-    return new Observable<Spell[]>((observer) => {
-      observer.next(
-        this.loadList.filter( spell => spell.Level == level)
-      );
-      observer.complete();
-    })
+  getSpellsByLevel(level: number): Spell[] {
+    return this.loadList.filter( spell => spell.Level == level)
   }
 
-  saveSpell(spell: Spell | undefined, form: FormGroup){
-    
+  saveSpell(spell: Spell | undefined, form: FormGroup): string[] {
+    let result: string[] = [];
+    let action: string = "";
+    let indice: number = 0;
+
     if (spell) {
-      console.log(this.loadList.findIndex( x => x.ID === spell.ID))
+      indice = this.loadList.findIndex( x => x.ID === spell.ID);
+      this.loadList[indice] = Spell.spellDesdeFormGroup(form, indice);
+      action = "edit";
     }
     else {
-      this.loadList.push(Spell.spellDesdeFormGroup(form, this.loadList.length))
+      indice = this.loadList.push(Spell.spellDesdeFormGroup(form, this.loadList.length));
+      indice = indice-1;
+      action = "new";
     }
+    
+    result = [action, this.loadList[indice].Name];
+    
+    this._eventReload.next(true);
+    return result;
+
   }
 
   deleteSpell(spell: Spell): boolean {
     this.loadList = this.loadList.filter((x) => x.ID !== spell.ID)
-    this.updateList();
+    this._eventReload.next(true);
     return true;
   }
 

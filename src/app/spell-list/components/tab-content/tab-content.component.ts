@@ -1,26 +1,28 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Spell } from 'src/app/model/spell.model';
 
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService, PrimeNGConfig } from 'primeng/api';
 import { SpellListService } from 'src/app/services/spell-list.service';
 
 import { DialogService } from 'primeng/dynamicdialog';
 import { DialogSpellComponent } from '../dialog-spell/dialog-spell.component'
 import { DialogAddEditComponent } from '../dialog-add-edit/dialog-add-edit.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tab-content',
-  templateUrl: './tab-content.component.html',
-  styleUrls: ['./tab-content.component.css']
+  templateUrl: './tab-content.component.html'
 })
-export class TabContentComponent implements OnInit {
+export class TabContentComponent implements OnInit, OnDestroy {
 
   @Input() level: number = 0
 
   spells: Spell[] = [];
   selectedSpell!: Spell;
+  subscription!: Subscription
 
   constructor( 
+    private primengConfig:      PrimeNGConfig,
     private spellList:          SpellListService,
     private dialogService:      DialogService,
     private confirmation:       ConfirmationService,
@@ -28,16 +30,19 @@ export class TabContentComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.reloadSpell();
+    this.primengConfig.ripple = true;
+    this.subscription = this.spellList.$observable.subscribe(() => {
+      this.reloadSpell();
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   reloadSpell(): void {
-    this.spellList.getSpellsByLevel(this.level).subscribe(
-      (x) => {
-        this.spells = x;
-        console.log(this.spells);
-      }
-    )
+
+    this.spells = this.spellList.getSpellsByLevel(this.level);
   }
 
   viewSpell(spell: Spell) {
@@ -62,9 +67,11 @@ export class TabContentComponent implements OnInit {
       }
     })
 
-    // ref.onClose.subscribe(() => {
-    //   //this.selectedSpell = ""
-    // });
+    ref.onClose.subscribe((result: string[]) => {
+      if (result[0] === 'edit') this.showSuccess(`El conjuro ${ result[1] } a sido modificado con exito.` )
+      else this.showSuccess(`El conjuro ${ result[1] } a sido creado con exito.` )
+      
+    });
   }
 
   deleteSpell(spell: Spell){
@@ -74,14 +81,13 @@ export class TabContentComponent implements OnInit {
       key: spell.ID.toString() ,
       accept: () => {
         this.spellList.deleteSpell(spell);
-        this.reloadSpell();
         this.showSuccess(`El conjuro ${ spell.Name } a sido eliminado con exito.` );
       }
     });
   }
   
   showSuccess(message: string) {
-    this.message.add({severity:'success', summary: 'Success', detail: message});
+    this.message.add({severity:'success', summary: 'Exito', detail: message});
   }
   
   

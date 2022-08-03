@@ -29,8 +29,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## ToDo
 
 ANGULAR
-- Funcion Añadir
-- Funcion Editar
 - Buscador
 - Dialog conjuro seleccionado
 - Generar exportable

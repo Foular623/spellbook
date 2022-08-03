@@ -7,7 +7,7 @@ import { SpellListService } from 'src/app/services/spell-list.service';
 
 import { ClassList, LevelList, SchoolSpellsList } from '../../../model/lists-dnd';
 import { Spell } from 'src/app/model/spell.model';
-import { PrimeNGConfig } from 'primeng/api';
+import { MessageService, PrimeNGConfig } from 'primeng/api';
 
 @Component({
   selector: 'app-dialog-add-edit',
@@ -20,14 +20,16 @@ export class DialogAddEditComponent implements OnInit {
   schools:        SchoolSpellsList[]  = [];
   currentSpell?:  Spell;
 
+  submit:         boolean             = false;
+
 
   formSpell: FormGroup = this.fb.group({
-    CastTime: [ '', [Validators.required, Validators.minLength(3)] ],
-    Classes: [[''], Validators.required], // List
+    CastTime: [ '', Validators.required ],
+    Classes: [[], Validators.required], // List
     VComponent: [ false ],
     SComponent: [ false ],
     MComponent: [ false ],
-    Material: [ '' ],
+    Material: [  ],
     SRD: [ false ],
     Desc: ['', Validators.required],
     Duration: ['', Validators.required ],
@@ -35,7 +37,7 @@ export class DialogAddEditComponent implements OnInit {
     Level: [ 0 , Validators.required], // Number
     Name: ['', Validators.required],
     Range: ['', Validators.required],
-    School: ['', Validators.required], // List
+    School: [, Validators.required], // List
     AtHighLevel: [''], // List
     Concentration: [ false ], // List
   });
@@ -45,6 +47,7 @@ export class DialogAddEditComponent implements OnInit {
     private fb:               FormBuilder,
     private lists:            DataDndSpellService,
     private primengConfig:    PrimeNGConfig,
+    private _message:         MessageService,
     public  ref:              DynamicDialogRef,
     public  config:           DynamicDialogConfig
   ) { }
@@ -55,10 +58,11 @@ export class DialogAddEditComponent implements OnInit {
     this.classes = this.lists.getListClasses();
     this.schools = this.lists.getListSchoolSpells();
 
-    if (this.config.data.spell) {
+    if (this.config.data?.spell !== undefined) {
       this.currentSpell = this.config.data.spell;
       this.jsonToFormSpell(this.currentSpell!);
     }
+    else this.checkMaterial();
 
   }
 
@@ -107,7 +111,15 @@ export class DialogAddEditComponent implements OnInit {
   }
 
   saveSpell() {
-    this.spellListService.saveSpell(this.currentSpell, this.formSpell);
+    this.submit = true;
+    if (this.formSpell.valid) {
+      let result: string[] = this.spellListService.saveSpell(this.currentSpell, this.formSpell);
+      this.ref.close(result);
+    }
+    else {
+      console.log("No submit")
+      this._message.add({severity:'error', summary: 'Error', detail: "Formulario invalido"})
+    }
   }
 
   // prueba() {

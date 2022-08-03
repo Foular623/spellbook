@@ -31,6 +31,19 @@ export interface SpellData {
 }
 
 export class Spell {
+    
+    static arrayFormToString( form: string[], srd: boolean ): string {
+        let result: string = form.join(', ');
+        if (srd) result = result + ', SRD';
+        return result;
+    }
+
+    static durationString( desc: string, concentration: boolean ): string {
+        let result: string = "";
+        if (concentration) result = result + "Concentration, up to ";
+        result = result + desc;
+        return result;
+    }
 
     static spellDesdeJson( obj: SpellData, index: number ){
         return new Spell (
@@ -49,15 +62,15 @@ export class Spell {
     }
 
     static spellDesdeFormGroup( form: FormGroup, index: number ){
-        const classes: string = form.controls['MComponent'].value.join;
+        const classes: string = this.arrayFormToString(form.controls['Classes'].value, form.controls['SRD'].value)
         const components: ComponentsData = new Component(
             form.controls['MComponent'].value,
             form.controls['Material'].value,
             form.controls['SComponent'].value,
             form.controls['VComponent'].value,
         );
-        const desc: string = "";
-        const duration: string = "";
+        const desc: string = form.controls['Desc'].value.replace("\n", "|").replace("\n\n", "||") + "|||At higher level: " +  form.controls['AtHighLevel'].value.replace("\n", "|").replace("\n\n", "||")
+        const duration: string = this.durationString(form.controls['Duration'].value, form.controls['Concentration'].value);
 
         return new Spell (
             index,
@@ -89,7 +102,4 @@ export class Spell {
         public School:      string,
     ){}
 
-    private arrayFormToString( form: any ): string {
-        
-    }
 }

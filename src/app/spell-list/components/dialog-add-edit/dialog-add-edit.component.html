@@ -3,22 +3,31 @@
     <div class="p-fluid grid">
         <div class="field col-12 md:col-4">
             <h5>Nombre</h5>
-            <input type="text" id="inputtext" pInputText formControlName="Name"> 
+            <input type="text" id="Name" aria-describedby="Name-help"
+            [ngClass]="{'ng-invalid': formSpell.controls['Name'].invalid && submit, 'ng-dirty': formSpell.controls['Name'].invalid && submit}" 
+            pInputText 
+            formControlName="Name">
+            <small *ngIf="formSpell.controls['Name'].invalid && submit" id="Name-help" class="p-error block">El Nombre es obligatorio.</small>
         </div>
     
         <div class="field col-12 md:col-4">
             <h5>Nivel</h5>
+            
             <p-dropdown inputId="dropdown" [options]="levels" optionLabel="name" placeholder="Selecciona el nivel" formControlName="Level" optionValue="level"></p-dropdown>
         </div>
     
         <div class="field col-12 md:col-4">
             <h5>Clases</h5>
-            <p-multiSelect [options]="classes" defaultLabel="Selecciona las clases" optionLabel="name" display="chip" formControlName="Classes" optionValue="value" ></p-multiSelect>
+            <p-multiSelect [options]="classes" id="Classes" aria-describedby="Classes-help" defaultLabel="Selecciona las clases" optionLabel="name" display="chip" formControlName="Classes" optionValue="value" 
+            [ngClass]="{'ng-invalid': formSpell.controls['Classes'].invalid && submit, 'ng-dirty': formSpell.controls['Classes'].invalid && submit}" ></p-multiSelect>
+            <small *ngIf="formSpell.controls['Classes'].invalid && submit" id="Classes-help" class="p-error block">Debes seleccionar al menos una clase.</small>
         </div>
     
         <div class="field col-12 md:col-4">
             <h5>Escuela</h5>
-            <p-dropdown [options]="schools"  placeholder="Selecciona la escuela" optionLabel="name" [showClear]="true" formControlName="School" optionValue="value"></p-dropdown>
+            <p-dropdown [options]="schools"  placeholder="Selecciona la escuela" optionLabel="name" [showClear]="true" formControlName="School" optionValue="value"
+            [ngClass]="{'ng-invalid': formSpell.controls['School'].invalid && submit, 'ng-dirty': formSpell.controls['School'].invalid && submit}"></p-dropdown>
+            <small *ngIf="formSpell.controls['Classes'].invalid && submit" class="p-error block">Debes seleccionar una escuela.</small>
         </div> 
     
         
@@ -46,19 +55,27 @@
         </div>
         <div class="field col-12 md:col-4">
             <h5>Tiempo de Lanzamiento</h5>
-            <input type="text" id="inputtext" pInputText formControlName="CastTime"> 
+            <input type="text" id="CastTime" aria-describedby="CastTime-help" pInputText formControlName="CastTime"
+            [ngClass]="{'ng-invalid': formSpell.controls['CastTime'].invalid && submit, 'ng-dirty': formSpell.controls['CastTime'].invalid && submit}"> 
+            <small *ngIf="formSpell.controls['CastTime'].invalid && submit" class="p-error block">Debe de ponerse un tiempo de casteo.</small>
         </div>
         <div class="field col-12 md:col-4">
             <h5>Duracion</h5>
-            <input type="text" id="inputtext" pInputText formControlName="Duration"> 
+            <input type="text" id="inputtext" pInputText formControlName="Duration"
+            [ngClass]="{'ng-invalid': formSpell.controls['Duration'].invalid && submit, 'ng-dirty': formSpell.controls['Duration'].invalid && submit}"> 
+            <small *ngIf="formSpell.controls['Duration'].invalid && submit" class="p-error block">La duracion debe ser marcada.</small>
         </div>
         <div class="field col-12 md:col-4">
             <h5>Rango</h5>
-            <input type="text" id="inputtext" pInputText formControlName="Range"> 
+            <input type="text" id="inputtext" pInputText formControlName="Range" 
+            [ngClass]="{'ng-invalid': formSpell.controls['Range'].invalid && submit, 'ng-dirty': formSpell.controls['Range'].invalid && submit}"> 
+            <small *ngIf="formSpell.controls['Range'].invalid && submit" id="Name-help" class="p-error block">Se debe de especificar el rango.</small>
         </div>
         <div class="field col-12 md:col-4">
             <h5>Descripcion</h5>
-            <textarea pInputTextarea formControlName="Desc" [autoResize]=true></textarea>
+            <textarea pInputTextarea formControlName="Desc" [autoResize]=true 
+            [ngClass]="{'ng-invalid': formSpell.controls['Desc'].invalid && submit, 'ng-dirty': formSpell.controls['Desc'].invalid && submit}"></textarea>
+            <small *ngIf="formSpell.controls['Desc'].invalid && submit" id="Name-help" class="p-error block">Debe de tener una descripcion.</small>
         </div>  
         <div class="field col-12 md:col-4">
             <h5>A nivel alto</h5>
@@ -66,7 +83,7 @@
         </div>  
     
     </div>
-    <p-button label="Guardar" icon="pi pi-check" styleClass="p-button-success"></p-button>
+    <p-button label="Guardar" icon="pi pi-check" styleClass="p-button-success" (onClick)="saveSpell()"></p-button>
 </form>
 
 <!-- <div class="field col-12 md:col-4">
