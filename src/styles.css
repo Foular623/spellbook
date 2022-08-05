@@ -4,6 +4,7 @@ body {
     padding: 2em;
     height: 100%; 
     font-family: var( --font-family );
+    /* overflow: hidden; */
 }
 
 p-button {

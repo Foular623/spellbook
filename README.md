@@ -30,10 +30,10 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ANGULAR
 - Buscador
-- Dialog conjuro seleccionado
 - Generar exportable
 
 ELECTRONs
+- Update spellList
 - ipc con Angular
 - generar fichero
 - guardar fichero

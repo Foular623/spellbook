@@ -31,6 +31,7 @@ export class TabContentComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
+    console.log("Creado")
     this.subscription = this.spellList.$observable.subscribe(() => {
       this.reloadSpell();
     })
@@ -41,7 +42,6 @@ export class TabContentComponent implements OnInit, OnDestroy {
   }
 
   reloadSpell(): void {
-
     this.spells = this.spellList.getSpellsByLevel(this.level);
   }
 

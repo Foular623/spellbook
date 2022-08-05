@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { IpcRenderer } from 'electron';
 
 
@@ -9,10 +9,16 @@ export class IpcServiceService {
 
   private _ipc: IpcRenderer | undefined
 
-  constructor() { 
+
+  constructor(
+    private _ngZone: NgZone
+  ) { 
     if (<any>window.require) {
       try {
-        this._ipc = window.require("electron").ipcRenderer;
+        this._ngZone.run(() => {
+
+          this._ipc = window.require("electron").ipcRenderer;
+        })
       }
       catch (e) {
         throw e;

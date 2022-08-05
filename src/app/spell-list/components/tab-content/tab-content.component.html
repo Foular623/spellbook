@@ -2,6 +2,8 @@
 <p-table    [value]="spells" 
             selectionMode="single" 
             [(selection)]="selectedSpell" 
+            [paginator]="true" 
+            [rows]="4" 
             dataKey="ID" 
             responsiveLayout="scroll" 
             *ngIf="spells.length != 0">
@@ -23,7 +25,7 @@
                 <span *ngIf="spell.Components.S">S </span>
                 <span *ngIf="spell.Components.M">M* </span>
             </td>
-            <td>{{spell.Classes}}</td>
+            <td  [innerHtml]="spell.Classes | classIcon"></td>
             <td>
                 <p-button icon="pi pi-eye" styleClass="p-button-info" (onClick)="viewSpell(spell)"></p-button>
                 <p-button icon="pi pi-pencil" styleClass="p-button-warning" (onClick)="editSpell(spell)"></p-button>

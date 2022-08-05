@@ -1,16 +1,22 @@
 import { NgModule } from '@angular/core';
-import { ComponentsPipe } from './components/components.pipe';
-import { DescPipe } from './desc/desc.pipe';
+import { ComponentsPipe } from './components.pipe';
+import { DescPipe } from './desc.pipe';
+import { ClassIconPipe } from './class-icon.pipe';
+import { SpellLevelPipe } from './spell-level.pipe';
 
 
 @NgModule({
   declarations: [
     ComponentsPipe,
-    DescPipe
+    DescPipe,
+    ClassIconPipe,
+    SpellLevelPipe
   ],
   exports: [
     ComponentsPipe,
-    DescPipe
+    DescPipe,
+    ClassIconPipe,
+    SpellLevelPipe
   ]
 })
 export class PipesModule { }

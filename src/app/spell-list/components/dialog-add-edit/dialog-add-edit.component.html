@@ -18,7 +18,14 @@
     
         <div class="field col-12 md:col-4">
             <h5>Clases</h5>
-            <p-multiSelect [options]="classes" id="Classes" aria-describedby="Classes-help" defaultLabel="Selecciona las clases" optionLabel="name" display="chip" formControlName="Classes" optionValue="value" 
+            <p-multiSelect 
+                [options]="classes" 
+                id="Classes" 
+                aria-describedby="Classes-help" 
+                defaultLabel="Selecciona las clases" 
+                optionLabel="name" 
+                display="chip" 
+                formControlName="Classes" optionValue="value" 
             [ngClass]="{'ng-invalid': formSpell.controls['Classes'].invalid && submit, 'ng-dirty': formSpell.controls['Classes'].invalid && submit}" ></p-multiSelect>
             <small *ngIf="formSpell.controls['Classes'].invalid && submit" id="Classes-help" class="p-error block">Debes seleccionar al menos una clase.</small>
         </div>

@@ -3,6 +3,15 @@
 </div>
 <div *ngIf="currentSpell">
     <hr>
+    <p> {{ currentSpell.Level | spellLevel }}, {{ currentSpell.School }} </p>
+    <p>
+        <b>Componentes:</b> {{ currentSpell | components }}<br>
+        <b>Tiempo de lanzamiento:</b> {{ currentSpell.CastTime }}<br>
+        <b>Alcance:</b> {{ currentSpell.Range }}<br>
+        <b>Duración:</b> {{ currentSpell.Duration }}<br>
+        <b>Clases:</b> {{ currentSpell.Classes }}
+        
+    </p>
     <p [innerHtml]="currentSpell.Desc | desc">
     </p>
     <!-- {{ currentSpell | json }} -->

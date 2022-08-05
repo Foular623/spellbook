@@ -1,5 +1,8 @@
 
 const { app, BrowserWindow, ipcMain } = require("electron");
+const fs = require('fs');
+
+let path = "\spellList.json";
 
 let appWin;
 
@@ -42,8 +45,9 @@ ipcMain.on("message", (event, arg) => {
     event.reply("reply", "pong");
 });
 
-ipcMain.on("getSpellList", (event, arg) => {
-    console.log(arg);
-    event.reply("reply", "pong");
+ipcMain.on("getSpellList", (event) => {
+    const dataList = JSON.parse(fs.readFileSync(`spellList.json`))
+        
+    event.reply("getSpellList", dataList);
     
 });

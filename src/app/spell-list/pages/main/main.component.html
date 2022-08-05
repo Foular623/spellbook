@@ -1,3 +1,8 @@
-<app-toolbar></app-toolbar>
-<br>
-<app-tab-spell></app-tab-spell>
+<div *ngIf="!load">
+    Cargando!!
+</div>
+<div *ngIf="load">
+    <app-toolbar></app-toolbar>
+    <br>
+    <app-tab-spell></app-tab-spell>
+</div>
