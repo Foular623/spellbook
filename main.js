@@ -40,14 +40,16 @@ app.on("window-all-closed", () => {
     }
 });
 
-ipcMain.on("message", (event, arg) => {
-    console.log(arg);
-    event.reply("reply", "pong");
-});
-
 ipcMain.on("getSpellList", (event) => {
     const dataList = JSON.parse(fs.readFileSync(`spellList.json`))
         
     event.reply("getSpellList", dataList);
+    
+});
+ipcMain.on("postSpellList", (event, list) => {
+    
+    fs.writeFile('spellList.json', JSON.stringify(list), function(err) {
+        if (err) throw err;
+    })
     
 });

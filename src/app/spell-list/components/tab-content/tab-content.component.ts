@@ -31,7 +31,6 @@ export class TabContentComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
-    console.log("Creado")
     this.subscription = this.spellList.$observable.subscribe(() => {
       this.reloadSpell();
     })
@@ -43,6 +42,7 @@ export class TabContentComponent implements OnInit, OnDestroy {
 
   reloadSpell(): void {
     this.spells = this.spellList.getSpellsByLevel(this.level);
+    this.spells.sort((a: Spell, b: Spell) => a.Name.localeCompare(b.Name));
   }
 
   viewSpell(spell: Spell) {
@@ -67,8 +67,8 @@ export class TabContentComponent implements OnInit, OnDestroy {
       }
     })
 
-    ref.onClose.subscribe((result: string[]) => {
-       this.showSuccess(`El conjuro ${ result[1] } a sido modificado con exito.` );
+    ref.onClose.subscribe((result: string[] | undefined) => {
+      if (result) this.showSuccess(`El conjuro ${ result[1] } a sido modificado con exito.` );
     });
   }
 

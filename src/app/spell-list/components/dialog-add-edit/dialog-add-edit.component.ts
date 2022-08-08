@@ -102,10 +102,14 @@ export class DialogAddEditComponent implements OnInit {
     clases = clases.filter(((x) => x.trim() !== "SRD"));
     this.formSpell.controls['Classes'].setValue(clases.map( y => {return y.trim()}));
     
-    const desc = spell.Desc.split("|||")
-    this.formSpell.controls['Desc'].setValue(desc[0].replace("|", "\n").replace("||", "\n\n"));
+    const regex1 = new RegExp(/[|]+At higher level:/);
+    const desc = spell.Desc.split(regex1);
 
-    if (desc.length > 1) this.formSpell.controls['AtHighLevel'].setValue(desc[1].replace("|", "\n").replace("||", "\n\n").replace("At higher level: ", ""));
+    const regex2 = new RegExp(/[|]/g);
+
+    this.formSpell.controls['Desc'].setValue(desc[0].replace(regex2, "\n"));
+
+    if (desc.length > 1) this.formSpell.controls['AtHighLevel'].setValue(desc[1].replace(regex2, "\n"));
 
 
   }

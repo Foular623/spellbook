@@ -15,10 +15,8 @@ export class IpcServiceService {
   ) { 
     if (<any>window.require) {
       try {
-        this._ngZone.run(() => {
 
-          this._ipc = window.require("electron").ipcRenderer;
-        })
+        this._ipc = window.require("electron").ipcRenderer;
       }
       catch (e) {
         throw e;

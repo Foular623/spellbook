@@ -20,7 +20,6 @@ export class DialogSpellComponent implements OnInit {
   ngOnInit(): void {
     if (this.config.header) {
       this.currentSpell = this.config.data.spell;
-      console.log(this.currentSpell)
     }
     
   }

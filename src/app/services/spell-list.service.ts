@@ -30,9 +30,12 @@ export class SpellListService {
   }
 
 
+  uploadList() {
+    this.IpcService.send("postSpellList", this.loadList);
+  }
+
 
   getSpellsByLevel(level: number): Spell[] {
-    console.log(level);
     return this.loadList.filter( spell => spell.Level === level)
   }
 
@@ -55,6 +58,7 @@ export class SpellListService {
     result = [action, this.loadList[indice].Name];
     
     this._eventReload.next(true);
+    this.uploadList();
     return result;
 
   }
@@ -62,6 +66,7 @@ export class SpellListService {
   deleteSpell(spell: Spell): boolean {
     this.loadList = this.loadList.filter((x) => x.ID !== spell.ID)
     this._eventReload.next(true);
+    this.uploadList();
     return true;
   }
 

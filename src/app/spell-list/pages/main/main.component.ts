@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SpellListService } from 'src/app/services/spell-list.service';
 
@@ -12,13 +12,16 @@ export class MainComponent implements OnInit {
   subscription!: Subscription;
   load: boolean = false;
 
-  constructor(private spellList: SpellListService) { }
+  constructor(
+    private spellList:  SpellListService,
+    private _ngZone:    NgZone
+  ) { }
 
   ngOnInit(): void {
     this.subscription = this.spellList.$observable.subscribe((event) => {
-
-      this.load = event;
-      console.log(this.load);
+      this._ngZone.run(() => {
+        this.load = event;
+      })
     })
   }
 

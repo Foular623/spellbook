@@ -2,9 +2,7 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.0.
 
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Aplicacion para editar de forma comoda la lista de [SpellMaster](https://github.com/VoltCruelerz/SpellMaster)
 
 ## Code scaffolding
 
@@ -32,9 +30,3 @@ ANGULAR
 - Buscador
 - Generar exportable
 
-ELECTRONs
-- Update spellList
-- ipc con Angular
-- generar fichero
-- guardar fichero
-- leer JSON
